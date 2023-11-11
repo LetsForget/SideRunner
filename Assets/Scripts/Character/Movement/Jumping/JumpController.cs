@@ -7,8 +7,19 @@ namespace Movement.Jump
 {
     public class JumpController
     {
+        /// <summary>
+        /// Invokes when jump sequence is about to start
+        /// </summary>
         public event Action Jumped;
+        
+        /// <summary>
+        /// Invokes when landing is about to start
+        /// </summary>
         public event Action LandingStarted;
+        
+        /// <summary>
+        /// Invokes when jump sequence is finished
+        /// </summary>
         public event Action Landed;
         
         protected JumpConfig config;
@@ -19,9 +30,21 @@ namespace Movement.Jump
         
         private Sequence jumpSequence;
 
+        /// <summary>
+        ///  The Y value to which it will jump
+        /// </summary>
         public float JumpHeight => parameters.CalculateJumpHeight();
+        /// <summary>
+        /// Duration of the lifting phase
+        /// </summary>
         public float JumpTime => parameters.CalculateJumpTime();
+        /// <summary>
+        /// The time for which the transform will hang in the air
+        /// </summary>
         public float FlyTime => parameters.CalculateFlyTime();
+        /// <summary>
+        /// Duration of the falling phase
+        /// </summary>
         public float LandTime => parameters.CalculateLandTime();
         
         public JumpController(JumpConfig config, Transform player)
@@ -37,39 +60,29 @@ namespace Movement.Jump
         /// </summary>
         public void Jump()
         {
+            // return if player is already jumping
             if (jumpSequence != null && jumpSequence.active)
             {
                 return;
             }
             
-            jumpSequence?.Kill();
+            // creating sequence for jump
             jumpSequence = DOTween.Sequence();
 
             var time = 0f;
             
-            AddJumpTween(ref time);
-            AddFlyTween(ref time);
-            AddLandTween(ref time);
-        }
-        
-        private void AddJumpTween(ref float time)
-        {
+            // Creating a tween to raise player up
             Jumped?.Invoke();
 
             var jumpTime = JumpTime;
-            
             var jumpTween = player.DOLocalMoveY(JumpHeight, jumpTime).SetEase(config.JumpCurve);
             jumpSequence.Insert(time, jumpTween);
             time += jumpTime;
-        }
-
-        private void AddFlyTween(ref float time)
-        {
+            
+            // Adding time to counter to make player hang in the air for a fly time
             time += FlyTime;
-        }
 
-        private void AddLandTween(ref float time)
-        {
+            // Creating a tween to lower player back to previous height 
             var landTime = LandTime;
             
             var landTween = player.DOLocalMoveY(startY, landTime).SetEase(config.LandCurve);

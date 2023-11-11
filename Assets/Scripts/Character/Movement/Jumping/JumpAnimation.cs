@@ -2,10 +2,13 @@
 
 namespace Movement.Jump
 {
+    /// <summary>
+    /// Jump animation handler
+    /// </summary>
     public class JumpAnimation : MonoBehaviour
     {
-        private const string jumpAnimationName = "Jump_";
-        private const string landAnimationName = "Land_";
+        private const string JumpAnimationName = "Jump_";
+        private const string LandAnimationName = "Land_";
         
         private static readonly int LandTrigger = Animator.StringToHash("Land");
         private static readonly int JumpTrigger = Animator.StringToHash("Jump");
@@ -21,6 +24,7 @@ namespace Movement.Jump
             defaultAnimatorSpeed = animator.speed;
             
             this.controller = controller;
+            
             this.controller.Jumped += OnJumped;
             this.controller.LandingStarted += OnLandingStarted;
             this.controller.Landed += OnLanded;
@@ -30,19 +34,14 @@ namespace Movement.Jump
 
         private void OnJumped()
         {
+            // Starting animation in animator
             animator.SetTrigger(JumpTrigger);
         }
 
         public void JumpStarted()
         {
-            var clipInfos = animator.GetCurrentAnimatorClipInfo(0);
-            var clip = FindClip(clipInfos, jumpAnimationName);
-
-            if (clip == null)
-            {
-                clipInfos = animator.GetNextAnimatorClipInfo(0);
-                clip = FindClip(clipInfos, jumpAnimationName);
-            }
+            // Finding clip and set animator speed according to clip's length and jump time
+            var clip = FindClip(JumpAnimationName);
 
             if (clip == null)
             {
@@ -54,19 +53,14 @@ namespace Movement.Jump
         
         private void OnLandingStarted()
         {
+            //After player flying at height over, calling trigger to start landing anim
             animator.SetTrigger(LandTrigger);
         }
         
         public void LandStarted()
-        {
-            var clipInfos = animator.GetCurrentAnimatorClipInfo(0);
-            var clip = FindClip(clipInfos, landAnimationName);
-
-            if (clip == null)
-            {
-                clipInfos = animator.GetNextAnimatorClipInfo(0);
-                clip = FindClip(clipInfos, landAnimationName);
-            }
+        {            
+            // Finding clip and set animator speed according to clip's length and land time
+            var clip = FindClip(LandAnimationName);
 
             if (clip == null)
             {
@@ -85,6 +79,20 @@ namespace Movement.Jump
 
         #region Misc
 
+        private AnimationClip FindClip(string name)
+        {
+            var clipInfos = animator.GetCurrentAnimatorClipInfo(0);
+            var clip = FindClip(clipInfos, name);
+
+            if (clip == null)
+            {
+                clipInfos = animator.GetNextAnimatorClipInfo(0);
+                clip = FindClip(clipInfos, name);
+            }
+
+            return clip;
+        }
+        
         private AnimationClip FindClip(AnimatorClipInfo[] clipInfos, string name)
         {
             foreach (var info in clipInfos)
