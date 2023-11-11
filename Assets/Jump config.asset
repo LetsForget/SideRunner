@@ -37,9 +37,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   <JumpHeight>k__BackingField: 1
-  <JumpTime>k__BackingField: 0.5
+  <JumpTime>k__BackingField: 1
   <FlyTime>k__BackingField: 0.1
-  <LandTime>k__BackingField: 0.5
+  <LandTime>k__BackingField: 1
   <LandCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:

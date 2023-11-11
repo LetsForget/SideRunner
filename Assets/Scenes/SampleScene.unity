@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpConfig: {fileID: 11400000, guid: 61802ef573c08824a8c091c675cbf559, type: 2}
   player: {fileID: 1638742186}
+  jumpAnimation: {fileID: 1638742187}
 --- !u!4 &85491830
 Transform:
   m_ObjectHideFlags: 0
@@ -408,8 +409,25 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 76b97aa7f8fdce84385df56b7ec795cf, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97cd90fb484febd47844a02d411c9369, type: 3}
+--- !u!1 &1638742184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 97cd90fb484febd47844a02d411c9369, type: 3}
+  m_PrefabInstance: {fileID: 1376612798}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1638742186 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 97cd90fb484febd47844a02d411c9369, type: 3}
   m_PrefabInstance: {fileID: 1376612798}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1638742187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638742184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6e7fb8f9ca4bf1b34faacbe66c3dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
