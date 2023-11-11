@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Movement.Animation;
+using UnityEngine;
 
 namespace Movement.Jump
 {
     /// <summary>
     /// Jump animation handler
     /// </summary>
-    public class JumpAnimation : MonoBehaviour
+    public class JumpAnimation : BaseAnimationController
     {
         private const string JumpAnimationName = "Jump_";
         private const string LandAnimationName = "Land_";
@@ -13,15 +14,11 @@ namespace Movement.Jump
         private static readonly int LandTrigger = Animator.StringToHash("Land");
         private static readonly int JumpTrigger = Animator.StringToHash("Jump");
         
-        private Animator animator;
         private JumpController controller;
-
-        private float defaultAnimatorSpeed;
         
         public void Initialize(JumpController controller)
         {
-            animator = GetComponent<Animator>();
-            defaultAnimatorSpeed = animator.speed;
+            base.Initialize();
             
             this.controller = controller;
             
@@ -29,8 +26,6 @@ namespace Movement.Jump
             this.controller.LandingStarted += OnLandingStarted;
             this.controller.Landed += OnLanded;
         }
-
-        #region Main animation cycle
 
         private void OnJumped()
         {
@@ -72,46 +67,7 @@ namespace Movement.Jump
 
         private void OnLanded()
         {
-            animator.speed = defaultAnimatorSpeed;
+            ResetAnimatorSpeed();
         }
-
-        #endregion
-
-        #region Misc
-
-        private AnimationClip FindClip(string name)
-        {
-            var clipInfos = animator.GetCurrentAnimatorClipInfo(0);
-            var clip = FindClip(clipInfos, name);
-
-            if (clip == null)
-            {
-                clipInfos = animator.GetNextAnimatorClipInfo(0);
-                clip = FindClip(clipInfos, name);
-            }
-
-            return clip;
-        }
-        
-        private AnimationClip FindClip(AnimatorClipInfo[] clipInfos, string name)
-        {
-            foreach (var info in clipInfos)
-            {
-                if (info.clip.name.Contains(name))
-                {
-                    return info.clip;
-                }
-            }
-
-            return null;
-        }
-        
-        private void SetSpeed(AnimationClip clip, float length)
-        {
-            var neededSpeed = clip.length / length;
-            animator.speed = neededSpeed;
-        }
-
-        #endregion
     }
 }

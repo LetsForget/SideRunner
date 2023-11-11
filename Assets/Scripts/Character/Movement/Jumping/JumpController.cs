@@ -53,6 +53,7 @@ namespace Movement.Jump
             this.player = player;
 
             startY = this.player.localPosition.y;
+            parameters = new NormalJumpParameters(this.config, startY);
         }
 
         /// <summary>
