@@ -1,8 +1,9 @@
 ﻿using System;
 using DG.Tweening;
+using Movement.Jump.Parameters;
 using UnityEngine;
 
-namespace Movement
+namespace Movement.Jump
 {
     public class JumpController
     {
@@ -12,10 +13,16 @@ namespace Movement
         
         protected JumpConfig config;
         protected Transform player;
-
+        protected JumpParameters parameters;
+        
         protected float startY;
         
         private Sequence jumpSequence;
+
+        public float JumpHeight => parameters.CalculateJumpHeight();
+        public float JumpTime => parameters.CalculateJumpTime();
+        public float FlyTime => parameters.CalculateFlyTime();
+        public float LandTime => parameters.CalculateLandTime();
         
         public JumpController(JumpConfig config, Transform player)
         {
@@ -48,24 +55,22 @@ namespace Movement
         private void AddJumpTween(ref float time)
         {
             Jumped?.Invoke();
+
+            var jumpTime = JumpTime;
             
-            var jumpPos = CalculateJumpPos();
-            var jumpTime = CalculateJumpTime();
-            
-            var jumpTween = player.DOLocalMoveY(jumpPos, jumpTime).SetEase(config.JumpCurve);
+            var jumpTween = player.DOLocalMoveY(JumpHeight, jumpTime).SetEase(config.JumpCurve);
             jumpSequence.Insert(time, jumpTween);
             time += jumpTime;
         }
 
         private void AddFlyTween(ref float time)
         {
-            var flyTime = CalculateFlyTime();
-            time += flyTime;
+            time += FlyTime;
         }
 
         private void AddLandTween(ref float time)
         {
-            var landTime = CalculateLandTime();
+            var landTime = LandTime;
             
             var landTween = player.DOLocalMoveY(startY, landTime).SetEase(config.LandCurve);
             jumpSequence.Insert(time, landTween);
@@ -74,29 +79,5 @@ namespace Movement
             time += landTime;
             jumpSequence.InsertCallback(time, () => Landed?.Invoke());
         }
-        
-        #region Customizable behaviour
-
-        protected virtual float CalculateJumpPos()
-        {
-            return startY + config.JumpHeight;
-        }
-
-        public virtual float CalculateJumpTime()
-        {
-            return config.JumpTime;
-        }
-
-        protected virtual float CalculateFlyTime()
-        {
-            return config.FlyTime;
-        }
-
-        public virtual float CalculateLandTime()
-        {
-            return config.LandTime;
-        }
-
-        #endregion
     }
 }

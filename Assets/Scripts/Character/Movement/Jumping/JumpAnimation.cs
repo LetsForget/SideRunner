@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Movement
+namespace Movement.Jump
 {
     public class JumpAnimation : MonoBehaviour
     {
@@ -25,7 +25,9 @@ namespace Movement
             this.controller.LandingStarted += OnLandingStarted;
             this.controller.Landed += OnLanded;
         }
-        
+
+        #region Main animation cycle
+
         private void OnJumped()
         {
             animator.SetTrigger(JumpTrigger);
@@ -47,7 +49,7 @@ namespace Movement
                 return;
             }
             
-            SetSpeed(clip, controller.CalculateJumpTime());
+            SetSpeed(clip, controller.JumpTime);
         }
         
         private void OnLandingStarted()
@@ -71,14 +73,18 @@ namespace Movement
                 return;
             }
             
-            SetSpeed(clip, controller.CalculateLandTime());
+            SetSpeed(clip, controller.LandTime);
         }
 
         private void OnLanded()
         {
             animator.speed = defaultAnimatorSpeed;
         }
-        
+
+        #endregion
+
+        #region Misc
+
         private AnimationClip FindClip(AnimatorClipInfo[] clipInfos, string name)
         {
             foreach (var info in clipInfos)
@@ -97,5 +103,7 @@ namespace Movement
             var neededSpeed = clip.length / length;
             animator.speed = neededSpeed;
         }
+
+        #endregion
     }
 }

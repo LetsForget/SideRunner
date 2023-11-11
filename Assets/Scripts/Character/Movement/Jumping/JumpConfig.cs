@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Movement
+namespace Movement.Jump
 {
     [CreateAssetMenu(menuName = "Assets/Movement/Jump config", fileName = "Jump config")]
     public class JumpConfig : ScriptableObject
