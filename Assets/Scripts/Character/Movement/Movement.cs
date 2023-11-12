@@ -1,8 +1,9 @@
-﻿using Location;
+﻿using GameInput;
+using Location;
 using Movement.Crawling;
 using Movement.Jump;
+using StateMachines;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Movement
 {
@@ -27,6 +28,7 @@ namespace Movement
         [SerializeField] private Transform locationHolder;
         
         private BaseLocationController locationController;
+        private PlayerStateMachine playerStateMachine;
         
         private void Start()
         {
@@ -37,20 +39,22 @@ namespace Movement
             crawlAnimation.Initialize(crawlController);
 
             locationController = new OneNodeLocationController(locationConfig, locationHolder, player);
+            playerStateMachine = new PlayerStateMachine(jumpController, crawlController);
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                jumpController.Jump();
+                playerStateMachine.OnInput(InputType.Jump);
             }
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                crawlController.Crawl();
+                playerStateMachine.OnInput(InputType.Crawl);
             }
 
+            playerStateMachine.Update();
             locationController.Update();
         }
     }
