@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameInput;
 using GameInput.Bonuses;
 using GameInput.Bonuses.FlyMultiplier;
 using GameInput.Character;
 using Location;
-using Movement.Animation;
 using Movement.Crawling;
 using Movement.Jump;
 using Movement.Run;
@@ -16,6 +14,8 @@ namespace Game
 {
     public class GameManager : MonoBehaviour
     {
+        [SerializeField] private AudioSource musicPlayer;
+        
         [SerializeField] private Animator animator;
         [SerializeField] private Transform player;
         [SerializeField] private RunningAnimation runningAnimation;
@@ -44,6 +44,8 @@ namespace Game
 
         private void Start()
         {
+            musicPlayer.Play();
+            
             // Animation initialization
             runningAnimation.Initialize(animator);
             jumpAnimation.Initialize(animator);
