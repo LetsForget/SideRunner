@@ -4,9 +4,9 @@
     {
         public NormalCrawlingParameters(CrawlConfig config) : base(config) { }
         
-        public override float CalculateCrawlingTime()
+        public override float CalculateCrawlingDuration()
         {
-            return config.CrawlTime;
+            return config.CrawlDuration;
         }
     }
 }

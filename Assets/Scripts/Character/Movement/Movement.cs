@@ -26,7 +26,10 @@ namespace Movement
         [Header("Location")] 
         [SerializeField] private LocationConfig locationConfig;
         [SerializeField] private Transform locationHolder;
-        
+
+        [Header("Jumping")] 
+        [SerializeField] private BoxCollider collision;
+
         private BaseLocationController locationController;
         private PlayerStateMachine playerStateMachine;
         
@@ -48,6 +51,8 @@ namespace Movement
             
             // Creating player state machine
             playerStateMachine = new PlayerStateMachine(jumpController, crawlController);
+            
+            // Collision initialization
         }
 
         private void Update()

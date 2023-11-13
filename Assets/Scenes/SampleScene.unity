@@ -159,6 +159,9 @@ MonoBehaviour:
   crawlConfig: {fileID: 11400000, guid: dafea8545c763b84e9b951410699f779, type: 2}
   locationConfig: {fileID: 11400000, guid: ad030b33049fa234eae015648dcd4912, type: 2}
   locationHolder: {fileID: 1819385098}
+  collision: {fileID: 1542947392}
+  standCollision: {fileID: 0}
+  crawlCollision: {fileID: 0}
 --- !u!4 &85491830
 Transform:
   m_ObjectHideFlags: 0
@@ -384,6 +387,82 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1542947391
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 543450652323354197}
+    m_Modifications:
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5499632
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.06517071
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1356
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.3504809
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9916643
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.12884864
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -2.2367998e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.000000016648302
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 14.806
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 659504392089511151, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5241430854357954304, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+      propertyPath: m_Name
+      value: Collision
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5507767736365595053, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+    - {fileID: 4088428179172594940, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+--- !u!65 &1542947392 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 8583365730349594572, guid: a4c67bf123ea2734481921ab4dad30be, type: 3}
+  m_PrefabInstance: {fileID: 1542947391}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1638742188 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6561940373814620742, guid: 901129dc419016f4ba7b889cee296b21, type: 3}

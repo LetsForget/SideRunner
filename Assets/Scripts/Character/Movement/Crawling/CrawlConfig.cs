@@ -8,6 +8,6 @@ namespace Movement.Crawling
         /// <summary>
         /// Duration the player will be crawling
         /// </summary>
-        [field: SerializeField] public float CrawlTime { get; private set; }
+        [field: SerializeField] public float CrawlDuration { get; private set; }
     }
 }

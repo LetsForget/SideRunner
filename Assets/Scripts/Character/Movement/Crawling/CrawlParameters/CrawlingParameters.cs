@@ -9,7 +9,6 @@
             this.config = config;
         }
         
-        public abstract float CalculateCrawlingTime();
-        
+        public abstract float CalculateCrawlingDuration();
     }
 }

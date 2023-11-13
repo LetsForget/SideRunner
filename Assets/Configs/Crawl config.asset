@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6205f4207b7f4c02aa2a9677d3ac8b4d, type: 3}
   m_Name: Crawl config
   m_EditorClassIdentifier: 
-  <CrawlTime>k__BackingField: 1
+  <CrawlDuration>k__BackingField: 1

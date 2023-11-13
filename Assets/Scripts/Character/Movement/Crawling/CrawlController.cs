@@ -1,6 +1,7 @@
 ﻿using System;
 using DG.Tweening;
 using Movement.Crawling.CrawlParameters;
+using UnityEngine;
 
 namespace Movement.Crawling
 {
@@ -24,11 +25,12 @@ namespace Movement.Crawling
         /// <summary>
         /// Duration the player will be crawling
         /// </summary>
-        public float CrawlTime => crawlingParameters.CalculateCrawlingTime();
+        public float CrawlDuration => crawlingParameters.CalculateCrawlingDuration();
 
         public CrawlController(CrawlConfig config)
         {
             this.config = config;
+            
             crawlingParameters = new NormalCrawlingParameters(config);
         }
         
@@ -46,14 +48,13 @@ namespace Movement.Crawling
             // creating sequence for jump
             crawlSequence = DOTween.Sequence();
 
-            var time = 0f;
-            
-            // Transition to crawling started
+            // Animation transition to crawling started
             CrawlingStarted?.Invoke();
+
+            var crawlDuration = CrawlDuration;
             
             // Waiting when crawling is over
-            time += CrawlTime;
-            crawlSequence.InsertCallback(time, () => CrawlingFinished?.Invoke());
+            crawlSequence.InsertCallback(crawlDuration, () => CrawlingFinished?.Invoke());
         }
     }
 }
