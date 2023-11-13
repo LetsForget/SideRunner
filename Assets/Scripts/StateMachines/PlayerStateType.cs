@@ -4,6 +4,7 @@
     {
         Running,
         Jumping,
-        Crawling
+        Crawling,
+        Flying
     }
 }

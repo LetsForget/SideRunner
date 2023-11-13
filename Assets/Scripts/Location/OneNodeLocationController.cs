@@ -2,7 +2,7 @@
 
 namespace Location
 {
-    public sealed class OneNodeLocationController : BaseLocationController
+    public sealed class OneNodeLocationController : LocationController
     {
         private LocationNode firstNode;
         private LocationNode secondNode;

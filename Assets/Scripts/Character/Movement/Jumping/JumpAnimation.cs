@@ -6,13 +6,16 @@ namespace Movement.Jump
     /// <summary>
     /// Jump animation handler
     /// </summary>
-    public class JumpAnimation : BaseAnimationController
+    public class JumpAnimation : AnimationController
     {
         private const string JumpAnimationName = "Jump_";
         private const string LandAnimationName = "Land_";
         
-        private static readonly int LandTrigger = Animator.StringToHash("Land");
         private static readonly int JumpTrigger = Animator.StringToHash("Jump");
+        private static readonly int JumpMult = Animator.StringToHash("JumpMult");
+        
+        private static readonly int LandTrigger = Animator.StringToHash("Land");
+        private static readonly int LandMult = Animator.StringToHash("LandMult");
 
         private float jumpTime;
         private float landTime;
@@ -32,11 +35,6 @@ namespace Movement.Jump
             animator.SetTrigger(LandTrigger);
         }
         
-        public void OnLanded()
-        {
-            ResetAnimatorSpeed();
-        }
-
         #region Animation events
 
         private void JumpStarted()
@@ -49,7 +47,7 @@ namespace Movement.Jump
                 return;
             }
             
-            SetSpeed(clip, jumpTime);
+            SetSpeed(clip, jumpTime,JumpMult);
         }
         
         private void LandStarted()
@@ -62,7 +60,7 @@ namespace Movement.Jump
                 return;
             }
             
-            SetSpeed(clip, landTime);
+            SetSpeed(clip, landTime, LandMult);
         }
         #endregion
     }

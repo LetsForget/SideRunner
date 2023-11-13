@@ -7,8 +7,9 @@ namespace Location
         private Transform location;
         private Vector3 direction;
 
-        public float MoveSpeed { get; set; } = 3;
-
+        public float Speed { get; set; } = 5;
+        public float SpeedMultiplier { get; set; } = 1;
+        
         public LocationMover(Transform location, Vector3 direction)
         {
             this.location = location;
@@ -17,7 +18,7 @@ namespace Location
         
         public void Update()
         {
-            location.position += direction * (MoveSpeed * Time.deltaTime);
+            location.position += direction * (Speed * SpeedMultiplier * Time.deltaTime);
         }
     }
 }

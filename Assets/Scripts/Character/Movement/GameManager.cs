@@ -1,46 +1,52 @@
 ﻿using GameInput;
 using Location;
+using Movement.Animation;
 using Movement.Crawling;
 using Movement.Jump;
+using Movement.Run;
 using StateMachines;
 using UnityEngine;
 
 namespace Movement
 {
-    public class Movement : MonoBehaviour
+    public class GameManager : MonoBehaviour
     {
+        [SerializeField] private Animator animator;
         [SerializeField] private Transform player;
+        [SerializeField] private RunningAnimation runningAnimation;
         
         [Header("Jumping")]
-        [SerializeField] private JumpAnimation jumpAnimation;
         [SerializeField] private JumpConfig jumpConfig;
-        
+        [SerializeField]private JumpAnimation jumpAnimation;
         private JumpController jumpController;
-
-        [Header("Crawling")]
-        [SerializeField] private CrawlAnimation crawlAnimation;
-        [SerializeField] private CrawlConfig crawlConfig;
         
+        [Header("Crawling")]
+        [SerializeField] private CrawlConfig crawlConfig;
+        [SerializeField] private CrawlAnimation crawlAnimation;
         private CrawlController crawlController;
 
         [Header("Location")] 
         [SerializeField] private LocationConfig locationConfig;
         [SerializeField] private Transform locationHolder;
 
-        [Header("Jumping")] 
+        [Header("Collision")] 
         [SerializeField] private BoxCollider collision;
-
-        private BaseLocationController locationController;
+        
+        private LocationController locationController;
         private PlayerStateMachine playerStateMachine;
         
         private void Start()
         {
+            // Animation initialization
+            runningAnimation.Initialize(animator);
+            jumpAnimation.Initialize(animator);
+            crawlAnimation.Initialize(animator);
+            
             // Jumping initialization
             jumpController = new JumpController(jumpConfig, player);
             jumpController.Jumped += jumpAnimation.OnJumped;
             jumpController.LandingStarted += jumpAnimation.OnLandingStarted;
-            jumpController.Landed += jumpAnimation.OnLanded;
-            
+
             // Crawling initialization
             crawlController = new CrawlController(crawlConfig);
             crawlController.CrawlingStarted += crawlAnimation.OnCrawlingStarted;
@@ -51,7 +57,7 @@ namespace Movement
             
             // Creating player state machine
             playerStateMachine = new PlayerStateMachine(jumpController, crawlController);
-            
+
             // Collision initialization
         }
 

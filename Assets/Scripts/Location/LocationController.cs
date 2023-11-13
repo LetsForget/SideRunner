@@ -2,7 +2,7 @@
 
 namespace Location
 {
-    public abstract class BaseLocationController
+    public abstract class LocationController
     {
         protected LocationConfig config;
         protected Transform locationHolder;
@@ -10,7 +10,7 @@ namespace Location
 
         protected LocationMover locationMover;
         
-        public BaseLocationController(LocationConfig config, Transform locationHolder, Transform player)
+        public LocationController(LocationConfig config, Transform locationHolder, Transform player)
         {
             this.config = config;
             this.locationHolder = locationHolder;
@@ -48,5 +48,7 @@ namespace Location
         {
             locationMover.Update();
         }
+
+        public void SetSpeedMultiplier(float multiplier) => locationMover.SpeedMultiplier = multiplier;
     }
 }

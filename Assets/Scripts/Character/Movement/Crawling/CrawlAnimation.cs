@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace Movement.Crawling
 {
-    public class CrawlAnimation : BaseAnimationController
+    public class CrawlAnimation : AnimationController
     {
         private static readonly int CrawlTrigger = Animator.StringToHash("Crawl");
         private static readonly int StandTrigger = Animator.StringToHash("Stand");
+        
         
         public void OnCrawlingStarted()
         {
