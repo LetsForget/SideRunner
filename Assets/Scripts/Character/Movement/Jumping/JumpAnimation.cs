@@ -23,7 +23,21 @@ namespace Movement.Jump
             animator.SetTrigger(JumpTrigger);
 
             this.jumpTime = jumpTime;
+            this.landTime = landTime;
         }
+        
+        public void OnLandingStarted()
+        {
+            //After player flying at height over, calling trigger to start landing anim
+            animator.SetTrigger(LandTrigger);
+        }
+        
+        public void OnLanded()
+        {
+            ResetAnimatorSpeed();
+        }
+
+        #region Animation events
 
         private void JumpStarted()
         {
@@ -38,12 +52,6 @@ namespace Movement.Jump
             SetSpeed(clip, jumpTime);
         }
         
-        public void OnLandingStarted()
-        {
-            //After player flying at height over, calling trigger to start landing anim
-            animator.SetTrigger(LandTrigger);
-        }
-        
         private void LandStarted()
         {            
             // Finding clip and set animator speed according to clip's length and land time
@@ -56,10 +64,6 @@ namespace Movement.Jump
             
             SetSpeed(clip, landTime);
         }
-
-        public void OnLanded()
-        {
-            ResetAnimatorSpeed();
-        }
+        #endregion
     }
 }

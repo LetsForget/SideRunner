@@ -70,7 +70,7 @@ namespace Movement.Jump
             var jumpTime = JumpTime;
             var flyTime = FlyTime;
             var landTime = LandTime;
-            Jumped?.Invoke(jumpTime, flyTime);
+            Jumped?.Invoke(jumpTime, landTime);
             
             // creating sequence for jump
             jumpSequence = DOTween.Sequence();
