@@ -10,6 +10,7 @@ namespace GameInput.Bonuses
         
         public override void Apply()
         {
+            bonusSequence = DOTween.Sequence();
             bonusSequence.InsertCallback(data.BonusDuration, Break);
             
             OnApply();

@@ -9,15 +9,17 @@ namespace StateMachines
 {
     public sealed class PlayerStateMachine : StateMachine<InputType>
     {
+        private Transform player;
         private JumpController jumpController;
         private CrawlController crawlController;
         
         private PlayerState CurrentPlayerState => CurrentState as PlayerState;
         
-        public PlayerStateMachine(JumpController jumpController, CrawlController crawlController)
+        public PlayerStateMachine(JumpController jumpController, CrawlController crawlController, Transform player)
         {
             this.jumpController = jumpController;
             this.crawlController = crawlController;
+            this.player = player;
             
             SwitchState(PlayerStateType.Running);
         }
@@ -50,6 +52,9 @@ namespace StateMachines
                     break;
                 case PlayerStateType.Crawling:
                     state = new CrawlState(crawlController);
+                    break;
+                case PlayerStateType.Flying:
+                    state = new FlyState(player);
                     break;
             }
 

@@ -63,7 +63,7 @@ namespace Game
             locationController = new OneNodeLocationController(locationConfig, locationHolder, player);
             
             // Creating player state machine
-            playerStateMachine = new PlayerStateMachine(jumpController, crawlController);
+            playerStateMachine = new PlayerStateMachine(jumpController, crawlController, player);
 
             // Collision initialization
             collisionController.BonusEarned += OnBonusEarned;
