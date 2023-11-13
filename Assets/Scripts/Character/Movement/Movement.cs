@@ -32,13 +32,21 @@ namespace Movement
         
         private void Start()
         {
+            // Jumping initialization
             jumpController = new JumpController(jumpConfig, player);
-            jumpAnimation.Initialize(jumpController);
-
+            jumpController.Jumped += jumpAnimation.OnJumped;
+            jumpController.LandingStarted += jumpAnimation.OnLandingStarted;
+            jumpController.Landed += jumpAnimation.OnLanded;
+            
+            // Crawling initialization
             crawlController = new CrawlController(crawlConfig);
-            crawlAnimation.Initialize(crawlController);
+            crawlController.CrawlingStarted += crawlAnimation.OnCrawlingStarted;
+            crawlController.CrawlingFinished += crawlAnimation.OnCrawlingFinished;
 
+            // Location initialization
             locationController = new OneNodeLocationController(locationConfig, locationHolder, player);
+            
+            // Creating player state machine
             playerStateMachine = new PlayerStateMachine(jumpController, crawlController);
         }
 

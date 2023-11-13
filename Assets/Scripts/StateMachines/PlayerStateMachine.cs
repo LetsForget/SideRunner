@@ -12,6 +12,8 @@ namespace StateMachines
         private JumpController jumpController;
         private CrawlController crawlController;
         
+        private PlayerState CurrentPlayerState => CurrentState as PlayerState;
+        
         public PlayerStateMachine(JumpController jumpController, CrawlController crawlController)
         {
             this.jumpController = jumpController;
@@ -22,14 +24,14 @@ namespace StateMachines
         
         protected override void EnterNewState()
         {
-            (CurrentState as PlayerState).WantSwitchState += OnWantSwitchState;
+            CurrentPlayerState.WantSwitchState += OnWantSwitchState;
            
             base.EnterNewState();
         }
 
         protected override void ExitFromState()
         {
-            (CurrentState as PlayerState).WantSwitchState -= OnWantSwitchState;
+            CurrentPlayerState.WantSwitchState -= OnWantSwitchState;
             
             base.ExitFromState();
         }

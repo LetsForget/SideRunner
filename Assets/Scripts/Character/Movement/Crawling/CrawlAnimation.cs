@@ -8,26 +8,15 @@ namespace Movement.Crawling
         private static readonly int CrawlTrigger = Animator.StringToHash("Crawl");
         private static readonly int StandTrigger = Animator.StringToHash("Stand");
         
-        private CrawlController controller;
-        
-        public void Initialize(CrawlController controller)
+        public void OnCrawlingStarted()
         {
-            base.Initialize();
-
-            this.controller = controller;
-            
-            this.controller.CrawlingStarted += OnCrawlingStarted;
-            this.controller.CrawlingFinished += OnCrawlingFinished;
-        }
-        
-        private void OnCrawlingStarted()
-        {
-            // Starting animation in animator
+            // Starting crawling animation in animator
             animator.SetTrigger(CrawlTrigger);
         }
         
-        private void OnCrawlingFinished()
+        public void OnCrawlingFinished()
         {
+            // Starting runnin animation in animator
             animator.SetTrigger(StandTrigger);
         }
     }

@@ -7,7 +7,7 @@ namespace Movement.Animation
         protected Animator animator;
         protected float defaultAnimatorSpeed;
         
-        protected void Initialize()
+        private void Awake()
         {
             animator = GetComponent<Animator>();
             defaultAnimatorSpeed = animator.speed;

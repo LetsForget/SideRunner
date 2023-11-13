@@ -13,27 +13,19 @@ namespace Movement.Jump
         
         private static readonly int LandTrigger = Animator.StringToHash("Land");
         private static readonly int JumpTrigger = Animator.StringToHash("Jump");
-        
-        private JumpController controller;
-        
-        public void Initialize(JumpController controller)
-        {
-            base.Initialize();
-            
-            this.controller = controller;
-            
-            this.controller.Jumped += OnJumped;
-            this.controller.LandingStarted += OnLandingStarted;
-            this.controller.Landed += OnLanded;
-        }
 
-        private void OnJumped()
+        private float jumpTime;
+        private float landTime;
+        
+        public void OnJumped(float jumpTime, float landTime)
         {
             // Starting animation in animator
             animator.SetTrigger(JumpTrigger);
+
+            this.jumpTime = jumpTime;
         }
 
-        public void JumpStarted()
+        private void JumpStarted()
         {
             // Finding clip and set animator speed according to clip's length and jump time
             var clip = FindClip(JumpAnimationName);
@@ -43,16 +35,16 @@ namespace Movement.Jump
                 return;
             }
             
-            SetSpeed(clip, controller.JumpTime);
+            SetSpeed(clip, jumpTime);
         }
         
-        private void OnLandingStarted()
+        public void OnLandingStarted()
         {
             //After player flying at height over, calling trigger to start landing anim
             animator.SetTrigger(LandTrigger);
         }
         
-        public void LandStarted()
+        private void LandStarted()
         {            
             // Finding clip and set animator speed according to clip's length and land time
             var clip = FindClip(LandAnimationName);
@@ -62,10 +54,10 @@ namespace Movement.Jump
                 return;
             }
             
-            SetSpeed(clip, controller.LandTime);
+            SetSpeed(clip, landTime);
         }
 
-        private void OnLanded()
+        public void OnLanded()
         {
             ResetAnimatorSpeed();
         }
