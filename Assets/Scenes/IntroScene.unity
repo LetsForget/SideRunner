@@ -522,6 +522,7 @@ MonoBehaviour:
   - {fileID: 2045431021}
   - {fileID: 1135842184}
   fadeOutTime: 1
+  sceneTransferDelay: 1.5
 --- !u!1 &1135842180
 GameObject:
   m_ObjectHideFlags: 0

@@ -41,9 +41,14 @@ namespace UI
             if (currentIndex >= images.Length)
             {
                 completed = true;
-
+                
                 var sequence = DOTween.Sequence();
-
+                
+                foreach (var image in images)
+                {
+                    sequence.Insert(0,image.DOFade(0, fadeOutTime));
+                }
+                
                 sequence.InsertCallback(fadeOutTime + sceneTransferDelay,
                     () => SceneManager.LoadSceneAsync("PlayScene"));
                 
