@@ -161,7 +161,7 @@ MonoBehaviour:
   crawlAnimation: {fileID: 6561940373288946411}
   locationConfig: {fileID: 11400000, guid: ad030b33049fa234eae015648dcd4912, type: 2}
   locationHolder: {fileID: 1819385098}
-  collision: {fileID: 612711667}
+  collisionController: {fileID: 612711669}
 --- !u!4 &85491830
 Transform:
   m_ObjectHideFlags: 0

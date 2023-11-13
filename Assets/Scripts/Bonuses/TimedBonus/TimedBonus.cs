@@ -19,6 +19,8 @@ namespace GameInput.Bonuses
         
         public override void Break()
         {
+            base.Break();
+            
             bonusSequence?.Kill(false);
             bonusSequence = null;
             

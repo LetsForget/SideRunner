@@ -1,3 +1,4 @@
+using GameInput.Bonuses;
 using UnityEngine;
 
 namespace Location
@@ -17,7 +18,7 @@ namespace Location
         /// <summary>
         /// Possible placeholders for bonuses
         /// </summary>
-        [field: SerializeField] public Transform[] BonusHolders { get; private set; }
+        [field: SerializeField] public BonusHolder[] BonusHolders { get; private set; }
         
         /// <summary>
         /// Distance from input node to output node

@@ -1,4 +1,9 @@
-﻿using GameInput;
+﻿using System;
+using System.Collections.Generic;
+using GameInput;
+using GameInput.Bonuses;
+using GameInput.Bonuses.FlyMultiplier;
+using GameInput.Character;
 using Location;
 using Movement.Animation;
 using Movement.Crawling;
@@ -7,7 +12,7 @@ using Movement.Run;
 using StateMachines;
 using UnityEngine;
 
-namespace Movement
+namespace Game
 {
     public class GameManager : MonoBehaviour
     {
@@ -30,11 +35,13 @@ namespace Movement
         [SerializeField] private Transform locationHolder;
 
         [Header("Collision")] 
-        [SerializeField] private BoxCollider collision;
+        [SerializeField] private CollisionController collisionController;
         
         private LocationController locationController;
         private PlayerStateMachine playerStateMachine;
-        
+
+        private List<Bonus> currentBonuses;
+
         private void Start()
         {
             // Animation initialization
@@ -59,8 +66,10 @@ namespace Movement
             playerStateMachine = new PlayerStateMachine(jumpController, crawlController);
 
             // Collision initialization
+            collisionController.BonusEarned += OnBonusEarned;
+            currentBonuses = new List<Bonus>();
         }
-
+        
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -75,6 +84,56 @@ namespace Movement
 
             playerStateMachine.Update();
             locationController.Update();
+        }
+        
+        private void OnBonusEarned(BonusData bonusData)
+        {
+            var newBonusType = bonusData.Type;
+            var relationsType = bonusData.Relations;
+
+            var bonusesCount = currentBonuses.Count - 1; 
+            for (var i = bonusesCount; i >= 0; i--)
+            {
+                var bonus = currentBonuses[i];
+                
+                if (bonus.Completed)
+                {
+                    currentBonuses.Remove(bonus);
+                    continue;
+                }
+                
+                switch (relationsType)
+                {
+                    case BonusesRelations.BreaksAll:
+                        bonus.Break();
+                        currentBonuses.Remove(bonus);
+                        break;
+                    case BonusesRelations.BreaksSameType:
+                        if (bonus.Type == newBonusType)
+                        {
+                            bonus.Break();
+                            currentBonuses.Remove(bonus);
+                        }
+                        break;
+                }
+            }
+
+            Bonus newBonus = null;
+            
+            switch (newBonusType)
+            {
+                case BonusType.SpeedMultiplier:
+                    var speedData = bonusData as SpeedMultiplierBonusData;
+                    newBonus = new SpeedMultiplierBonus(speedData, locationController, runningAnimation);
+                    break;
+                case BonusType.FlyBonus:
+                    var flyData = bonusData as FlyBonusData;
+                    newBonus = new FlyBonus(flyData, playerStateMachine);
+                    break;
+            }
+            
+            newBonus.Apply();
+            currentBonuses.Add(newBonus);
         }
     }
 }
